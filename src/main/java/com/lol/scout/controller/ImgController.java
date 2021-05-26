@@ -21,6 +21,16 @@ public class ImgController {
     @GetMapping(value = "rank/{rank}", produces = MediaType.IMAGE_PNG_VALUE)
     public @ResponseBody byte[] getRankImage(@PathVariable String rank) throws IOException {
         BufferedImage bi = imgManager.getRank(rank).orElseThrow(IOException::new);
+        return convertBufferedImageToByteArray(bi);
+    }
+
+    @GetMapping(value = "rank/{rank}/{position}", produces = MediaType.IMAGE_PNG_VALUE)
+    public @ResponseBody byte[] getRankPosition(@PathVariable String rank, @PathVariable String position) throws IOException {
+        BufferedImage bi = imgManager.getPositionRank(rank,position).orElseThrow(IOException::new);
+        return convertBufferedImageToByteArray(bi);
+    }
+
+    private byte[] convertBufferedImageToByteArray(BufferedImage bi) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(bi,"png",baos);
         baos.flush();

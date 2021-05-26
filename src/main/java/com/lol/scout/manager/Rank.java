@@ -12,7 +12,7 @@ public enum Rank {
     GRANDMASTER("Grandmaster"),
     CHALLENGER("Challenger");
 
-    private final static String directory = "src/main/resources/ranks/";
+    private final static String directory = "/ranks/";
     private final String name;
 
     Rank(String name) {
