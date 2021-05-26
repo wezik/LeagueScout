@@ -2,7 +2,6 @@ package com.lol.scout.api.league.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -29,11 +28,10 @@ public class LeagueApiConfig {
     @Value("${riot.api.static}")
     private String staticEndpoint;
 
+    @Value("${riot.api.locale}")
+    private String locale;
+
+    @Value("${riot.api.version}")
     private String version;
 
-    @Bean
-    public void fetchVersion() {
-        //TODO Fetch used version from the database
-        this.version = "11.11.1";
-    }
 }

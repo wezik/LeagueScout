@@ -11,6 +11,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,29 +25,81 @@ public class LeagueApiClient {
     private final RestTemplate restTemplate;
     private final LeagueApiConfig leagueApiConfig;
 
-
-    public Optional<ChampionListDto> fetchChampionsList() {
+    public Optional<ChampionListDto> fetchChampionsList(String version, String locale) {
+        LOGGER.info("Calling API to fetch champions list");
         try {
-            LOGGER.info("Calling API to fetch champions list");
-            Optional<ChampionListDto> response = Optional.ofNullable(restTemplate.getForObject(buildChampionsListURI(), ChampionListDto.class));
-            LOGGER.info("Call Successful");
+            Optional<ChampionListDto> response = Optional.ofNullable(restTemplate.getForObject(
+                    buildChampionsListURI(
+                            version,
+                            locale
+                    ),
+                    ChampionListDto.class)
+            );
+            logSuccess();
             return response;
         } catch (RestClientException e) {
-            LOGGER.error("Call Failed");
+            logFail();
             return Optional.empty();
         }
     }
 
-    private URI buildChampionsListURI() {
+    public Optional<ChampionListDto> fetchChampionsList() {
+        return fetchChampionsList(leagueApiConfig.getVersion(),leagueApiConfig.getLocale());
+    }
+
+    public List<String> fetchVersions() {
+        LOGGER.info("Calling API to fetch versions");
+        try {
+            Optional<String[]> response = Optional.ofNullable(restTemplate.getForObject(buildVersionsURI(),String[].class));
+            logSuccess();
+            return response.map(Arrays::asList).orElse(Collections.emptyList());
+        } catch (RestClientException e) {
+            logFail();
+            return Collections.emptyList();
+        }
+    }
+
+    public List<String> fetchLanguages() {
+        LOGGER.info("Calling API to fetch languages");
+        try {
+            Optional<String[]> response = Optional.ofNullable(restTemplate.getForObject(buildLanguagesURI(),String[].class));
+            logSuccess();
+            return response.map(Arrays::asList).orElse(Collections.emptyList());
+        } catch (RestClientException e) {
+            logFail();
+            return Collections.emptyList();
+        }
+    }
+
+    private void logSuccess() {
+        LOGGER.info("Call Successful");
+    }
+
+    private void logFail() {
+        LOGGER.error("Call Failed");
+    }
+
+    private URI buildChampionsListURI(String version, String locale) {
         List<String> urlComponents = List.of(
                 leagueApiConfig.getDDragonEndpoint(),
                 "cdn",
-                leagueApiConfig.getVersion(),
+                version,
                 "data",
-                "en_US",
+                locale,
                 "champion.json"
         );
-        return UriComponentsBuilder.fromHttpUrl(String.join("/",urlComponents)).build().encode().toUri();
+        return UriComponentsBuilder.fromHttpUrl(String.join("/",urlComponents))
+                .build().encode().toUri();
+    }
+
+    private URI buildVersionsURI() {
+        return UriComponentsBuilder.fromHttpUrl(leagueApiConfig.getDDragonEndpoint()+"/api/versions.json")
+                .build().encode().toUri();
+    }
+
+    private URI buildLanguagesURI() {
+        return UriComponentsBuilder.fromHttpUrl(leagueApiConfig.getDDragonEndpoint()+"/cdn/languages.json")
+                .build().encode().toUri();
     }
 
 }

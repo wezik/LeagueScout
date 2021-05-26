@@ -13,5 +13,5 @@ public class ChampionListDto {
     private String type;
     private String format;
     private String version;
-    private Map<String,Champion> data;
+    private Map<String, ChampionDto> data;
 }

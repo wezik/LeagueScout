@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Champion {
+public class ChampionDto {
     @JsonProperty("id")
     private String id;
     @JsonProperty("name")
