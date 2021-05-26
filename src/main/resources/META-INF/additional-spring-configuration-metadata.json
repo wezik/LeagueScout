@@ -1,0 +1,28 @@
+{
+  "properties": [
+    {
+      "name": "riot.api.autoupdate",
+      "type": "java.lang.String",
+      "description": "1 for true, 0 for false."
+    },
+    {
+      "name": "riot.api.version",
+      "type": "java.lang.String",
+      "description": "Version of Riot API used to fetch data, can provide older one to older data(required to disable auto updating)."
+    },
+    {
+      "name": "riot.api.locale",
+      "type": "java.lang.String",
+      "description": "Provides a locale used in fetching data. Using different locale will change the language of champion bio etc."
+    },
+    {
+      "name": "riot.api.key",
+      "type": "java.lang.String",
+      "description": "Provides API key. It's necessary and it's highly recommended that it's going to be passed via environmental variable, to avoid Leaking."
+    },
+    {
+      "name": "images.directory",
+      "type": "java.lang.String",
+      "description": "Directory where are all of the images stored."
+    }
+  ] }
