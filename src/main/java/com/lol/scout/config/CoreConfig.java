@@ -1,7 +1,6 @@
 package com.lol.scout.config;
 
 import com.google.gson.GsonBuilder;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
