@@ -23,6 +23,6 @@
     {
       "name": "images.directory",
       "type": "java.lang.String",
-      "description": "Directory where are all of the images stored."
+      "description": "Directory where are all of the images are stored."
     }
   ] }
