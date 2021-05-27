@@ -6,12 +6,11 @@ import com.lol.scout.domain.cache.ChampionsCache;
 import com.lol.scout.domain.cache.LanguagesCache;
 import com.lol.scout.domain.cache.VersionsCache;
 import com.lol.scout.exception.ApiFetchFailedException;
-import com.lol.scout.service.ApiService;
+import com.lol.scout.service.ApiDataService;
 import com.lol.scout.service.ChampionsCacheService;
 import com.lol.scout.service.LanguagesCacheService;
 import com.lol.scout.service.VersionsCacheService;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -26,7 +25,7 @@ public class CacheFacade {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CacheFacade.class);
 
-    private final ApiService apiService;
+    private final ApiDataService apiDataService;
     private final LanguagesCacheService languagesCacheService;
     private final VersionsCacheService versionsCacheService;
     private final ChampionsCacheService championsCacheService;
@@ -38,7 +37,7 @@ public class CacheFacade {
         if (entries.size()==1 && !(entries.get(0).getLastUpdate().isBefore(LocalDate.now()))) {
             cache = entries.get(0);
         } else {
-            LanguagesCache l = new LanguagesCache(LocalDate.now(),gsonBuilder.create().toJson(apiService.getLanguages()));
+            LanguagesCache l = new LanguagesCache(LocalDate.now(),gsonBuilder.create().toJson(apiDataService.getLanguages()));
             languagesCacheService.deleteAll();
             cache = languagesCacheService.save(l);
             logCaching();
@@ -52,7 +51,7 @@ public class CacheFacade {
         if (entries.size()==1 && !(entries.get(0).getLastUpdate().isBefore(LocalDate.now()))) {
             cache = entries.get(0);
         } else {
-            VersionsCache v = new VersionsCache(LocalDate.now(),gsonBuilder.create().toJson(apiService.getVersions()));
+            VersionsCache v = new VersionsCache(LocalDate.now(),gsonBuilder.create().toJson(apiDataService.getVersions()));
             versionsCacheService.deleteAll();
             cache = versionsCacheService.save(v);
             logCaching();
@@ -68,7 +67,7 @@ public class CacheFacade {
         } else {
             ChampionsCache c = new ChampionsCache(
                     LocalDate.now(),
-                    gsonBuilder.create().toJson(apiService.getChampionListDto().orElseThrow(ApiFetchFailedException::new))
+                    gsonBuilder.create().toJson(apiDataService.getChampionListDto().orElseThrow(ApiFetchFailedException::new))
             );
             championsCacheService.deleteAll();
             cache = championsCacheService.save(c);

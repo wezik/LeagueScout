@@ -18,9 +18,9 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class LeagueApiClient {
+public class LeagueDataApiClient {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LeagueApiClient.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LeagueDataApiClient.class);
 
     private final RestTemplate restTemplate;
     private final LeagueApiConfig leagueApiConfig;

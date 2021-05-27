@@ -3,7 +3,7 @@ package com.lol.scout.controller;
 import com.lol.scout.domain.ChampionListDto;
 import com.lol.scout.exception.ApiFetchFailedException;
 import com.lol.scout.facade.CacheFacade;
-import com.lol.scout.service.ApiService;
+import com.lol.scout.service.ApiDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class MainController {
 
-    private final ApiService apiService;
+    private final ApiDataService apiDataService;
     private final CacheFacade cacheFacade;
 
     @GetMapping("champions")
@@ -25,7 +25,7 @@ public class MainController {
 
     @GetMapping("champions/{version}/{locale}")
     public ChampionListDto getChampions(@PathVariable String version, @PathVariable String locale) throws ApiFetchFailedException {
-        return apiService.getChampionListDto(version,locale).orElseThrow(ApiFetchFailedException::new);
+        return apiDataService.getChampionListDto(version,locale).orElseThrow(ApiFetchFailedException::new);
     }
 
     @GetMapping("versions")

@@ -2,6 +2,8 @@ package com.lol.scout.manager;
 
 import com.lol.scout.api.league.config.LeagueApiConfig;
 import com.lol.scout.config.CoreConfig;
+import com.lol.scout.singleton.Position;
+import com.lol.scout.singleton.Rank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,6 @@
 package com.lol.scout.service;
 
-import com.lol.scout.api.league.client.LeagueApiClient;
+import com.lol.scout.api.league.client.LeagueDataApiClient;
 import com.lol.scout.domain.ChampionListDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,24 +10,24 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ApiService {
+public class ApiDataService {
 
-    private final LeagueApiClient leagueApiClient;
+    private final LeagueDataApiClient leagueDataApiClient;
 
     public Optional<ChampionListDto> getChampionListDto() {
-        return leagueApiClient.fetchChampionsList();
+        return leagueDataApiClient.fetchChampionsList();
     }
 
     public List<String> getLanguages() {
-        return leagueApiClient.fetchLanguages();
+        return leagueDataApiClient.fetchLanguages();
     }
 
     public Optional<ChampionListDto> getChampionListDto(String version, String locale) {
-        return leagueApiClient.fetchChampionsList(version,locale);
+        return leagueDataApiClient.fetchChampionsList(version,locale);
     }
 
     public List<String> getVersions() {
-        return leagueApiClient.fetchVersions();
+        return leagueDataApiClient.fetchVersions();
     }
 
 }

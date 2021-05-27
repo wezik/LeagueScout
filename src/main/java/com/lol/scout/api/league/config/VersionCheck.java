@@ -62,9 +62,9 @@ public class VersionCheck {
             }
             bw.flush();
             bw.close();
-            LOGGER.info("Version updated successfully");
+            LOGGER.info("API updated successfully");
         } catch (IOException e) {
-            LOGGER.error("Failed to update riot api version");
+            LOGGER.error("Failed to update Riot API");
         }
     }
 }

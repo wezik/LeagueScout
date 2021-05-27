@@ -1,4 +1,4 @@
-package com.lol.scout.manager;
+package com.lol.scout.singleton;
 
 public enum Position {
 
