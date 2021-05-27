@@ -23,6 +23,31 @@
     {
       "name": "images.directory",
       "type": "java.lang.String",
-      "description": "Directory where are all of the images are stored."
+      "description": "Directory where all of the images are stored."
+    },
+    {
+      "name": "riot.api.ddragon",
+      "type": "java.lang.String",
+      "description": "ddragon endpoint for all basic data and arts."
+    },
+    {
+      "name": "riot.api.na",
+      "type": "java.lang.String",
+      "description": "NA endpoint."
+    },
+    {
+      "name": "riot.api.kr",
+      "type": "java.lang.String",
+      "description": "KR endpoint."
+    },
+    {
+      "name": "riot.api.euw",
+      "type": "java.lang.String",
+      "description": "EUW endpoint."
+    },
+    {
+      "name": "riot.api.eune",
+      "type": "java.lang.String",
+      "description": "EUNE endpoint."
     }
   ] }
