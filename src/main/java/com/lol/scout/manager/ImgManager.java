@@ -63,6 +63,39 @@ public class ImgManager {
         return Optional.empty();
     }
 
+    public String createIconArtUrlForItem(String id) {
+        List<String> params = List.of(
+                leagueApiConfig.getDDragonEndpoint(),
+                "cdn",
+                leagueApiConfig.getVersion(),
+                "img/item",
+                id+".png"
+        );
+        return String.join("/",params);
+    }
+
+    public String createIconArtUrlForSummonerSpell(String id) {
+        List<String> params = List.of(
+                leagueApiConfig.getDDragonEndpoint(),
+                "cdn",
+                leagueApiConfig.getVersion(),
+                "img/spell",
+                id+".png"
+        );
+        return String.join("/",params);
+    }
+
+    public String createIconArtUrlForSummoner(String id) {
+        List<String> params = List.of(
+                leagueApiConfig.getDDragonEndpoint(),
+                "cdn",
+                leagueApiConfig.getVersion(),
+                "img/profileicon",
+                id+".png"
+        );
+        return String.join("/",params);
+    }
+
     public String createIconArtUrlForChampion(String champion) {
         List<String> params = List.of(
                 leagueApiConfig.getDDragonEndpoint(),
