@@ -21,9 +21,9 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class CacheFacade {
+public class DataCacheFacade {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CacheFacade.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataCacheFacade.class);
 
     private final ApiDataService apiDataService;
     private final LanguagesCacheService languagesCacheService;

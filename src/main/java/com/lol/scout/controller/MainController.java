@@ -2,7 +2,7 @@ package com.lol.scout.controller;
 
 import com.lol.scout.domain.ChampionListDto;
 import com.lol.scout.exception.ApiFetchFailedException;
-import com.lol.scout.facade.CacheFacade;
+import com.lol.scout.facade.DataCacheFacade;
 import com.lol.scout.service.ApiDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +16,11 @@ import java.util.List;
 public class MainController {
 
     private final ApiDataService apiDataService;
-    private final CacheFacade cacheFacade;
+    private final DataCacheFacade dataCacheFacade;
 
     @GetMapping("champions")
     public ChampionListDto getChampions() throws ApiFetchFailedException {
-        return cacheFacade.getChampions();
+        return dataCacheFacade.getChampions();
     }
 
     @GetMapping("champions/{version}/{locale}")
@@ -30,12 +30,12 @@ public class MainController {
 
     @GetMapping("versions")
     public List<String> getVersions() {
-        return cacheFacade.getVersions();
+        return dataCacheFacade.getVersions();
     }
 
     @GetMapping("languages")
     public List<String> getLanguages() {
-        return cacheFacade.getLanguages();
+        return dataCacheFacade.getLanguages();
     }
 
 }

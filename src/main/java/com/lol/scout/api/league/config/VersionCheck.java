@@ -1,6 +1,6 @@
 package com.lol.scout.api.league.config;
 
-import com.lol.scout.facade.CacheFacade;
+import com.lol.scout.facade.DataCacheFacade;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ public class VersionCheck {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VersionCheck.class);
 
-    private final CacheFacade cacheFacade;
+    private final DataCacheFacade dataCacheFacade;
 
     @Value("${riot.api.version}")
     private String version;
@@ -31,7 +31,7 @@ public class VersionCheck {
 
     @Bean
     public void checkVersion() {
-        List<String> versions = cacheFacade.getVersions();
+        List<String> versions = dataCacheFacade.getVersions();
         if (versions.size() > 0) {
             String currentVersion = versions.get(0);
             if (!currentVersion.equals(version)) {
