@@ -2,11 +2,13 @@ package com.lol.scout.service;
 
 import com.lol.scout.api.league.client.LeagueSummonerApiClient;
 import com.lol.scout.domain.currentgame.CurrentGameInfo;
+import com.lol.scout.domain.league.LeagueEntry;
 import com.lol.scout.domain.summoner.Summoner;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +22,10 @@ public class ApiSummonerService {
 
     public Optional<CurrentGameInfo> getCurrentGameById(String server, String summonerId) {
         return leagueSummonerApiClient.fetchLiveGame(server,summonerId);
+    }
+
+    public Set<LeagueEntry> getRankEntries(String server, String summonerId) {
+        return leagueSummonerApiClient.fetchRankEntries(server,summonerId);
     }
 
 }

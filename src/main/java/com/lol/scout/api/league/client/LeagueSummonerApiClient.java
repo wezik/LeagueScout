@@ -2,6 +2,7 @@ package com.lol.scout.api.league.client;
 
 import com.lol.scout.api.league.config.LeagueApiConfig;
 import com.lol.scout.domain.currentgame.CurrentGameInfo;
+import com.lol.scout.domain.league.LeagueEntry;
 import com.lol.scout.domain.summoner.Summoner;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -12,8 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -24,11 +24,29 @@ public class LeagueSummonerApiClient {
     private final RestTemplate restTemplate;
     private final LeagueApiConfig leagueApiConfig;
 
-    public Optional<CurrentGameInfo> fetchLiveGame(String server, String summoner_id) {
+    public Set<LeagueEntry> fetchRankEntries(String server, String summonerId) {
+        LOGGER.info("Calling API to fetch rank");
+        try {
+            Optional<LeagueEntry[]> response = Optional.ofNullable(
+                    restTemplate.getForObject(
+                            buildRankEntriesByIdURI(server,summonerId),
+                            LeagueEntry[].class));
+            if (response.isPresent()) {
+                return new HashSet<>(Arrays.asList(response.get()));
+            } else {
+                return Collections.emptySet();
+            }
+        } catch (RestClientException e) {
+            return Collections.emptySet();
+        }
+    }
+
+    public Optional<CurrentGameInfo> fetchLiveGame(String server, String summonerId) {
         LOGGER.info("Calling API to fetch live game");
         try {
             Optional<CurrentGameInfo> response = Optional.ofNullable(
-                    restTemplate.getForObject(buildLiveGameBySummonerIdURI(server, summoner_id),
+                    restTemplate.getForObject(
+                            buildLiveGameBySummonerIdURI(server, summonerId),
                             CurrentGameInfo.class)
             );
             logSuccess();
@@ -43,7 +61,8 @@ public class LeagueSummonerApiClient {
         LOGGER.info("Calling API to fetch summoner "+name);
         try {
             Optional<Summoner> response = Optional.ofNullable(
-                    restTemplate.getForObject(buildSummonerByNameURI(server, name),
+                    restTemplate.getForObject(
+                            buildSummonerByNameURI(server, name),
                             Summoner.class)
             );
             logSuccess();
@@ -57,10 +76,30 @@ public class LeagueSummonerApiClient {
     private final String apiKeyParam = "?api_key=";
     private final String summonerApi = "summoner";
     private final String spectatorApi = "spectator";
+    private final String leagueApi = "league";
     private final String apiName = "lol";
     private final String apiVersion = "v4";
     private final String byName = "by-name";
     private final String byId = "by-summoner";
+
+    private URI buildMatchHistoryByIdURI() {
+        //TODO
+        return null;
+    }
+
+    private URI buildRankEntriesByIdURI(String server, String summonerId) {
+        List<String> params = List.of(
+                determineServerEndpoint(server),
+                apiName,
+                leagueApi,
+                apiVersion,
+                "entries",
+                byId,
+                summonerId+apiKeyParam+leagueApiConfig.getKey()
+        );
+        return UriComponentsBuilder.fromHttpUrl(String.join("/",params))
+                .build().encode().toUri();
+    }
 
     private URI buildSummonerByNameURI(String server, String name) {
         List<String> params = List.of(
@@ -76,7 +115,7 @@ public class LeagueSummonerApiClient {
                 .build().encode().toUri();
     }
 
-    private URI buildLiveGameBySummonerIdURI(String server, String summoner_id) {
+    private URI buildLiveGameBySummonerIdURI(String server, String summonerId) {
         List<String> params = List.of(
                 determineServerEndpoint(server),
                 apiName,
@@ -84,7 +123,7 @@ public class LeagueSummonerApiClient {
                 apiVersion,
                 "active-games",
                 byId,
-                summoner_id+apiKeyParam+leagueApiConfig.getKey()
+                summonerId+apiKeyParam+leagueApiConfig.getKey()
         );
         return UriComponentsBuilder.fromHttpUrl(String.join("/",params))
                 .build().encode().toUri();
