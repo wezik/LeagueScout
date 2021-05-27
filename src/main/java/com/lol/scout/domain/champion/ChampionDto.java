@@ -1,4 +1,4 @@
-package com.lol.scout.domain;
+package com.lol.scout.domain.champion;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

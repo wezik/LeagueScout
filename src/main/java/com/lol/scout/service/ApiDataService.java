@@ -1,7 +1,7 @@
 package com.lol.scout.service;
 
 import com.lol.scout.api.league.client.LeagueDataApiClient;
-import com.lol.scout.domain.ChampionListDto;
+import com.lol.scout.domain.champion.ChampionListDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.lol.scout.api.league.client;
 
 import com.lol.scout.api.league.config.LeagueApiConfig;
-import com.lol.scout.domain.ChampionListDto;
+import com.lol.scout.domain.champion.ChampionListDto;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

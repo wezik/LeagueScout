@@ -1,4 +1,4 @@
-package com.lol.scout.domain;
+package com.lol.scout.domain.champion;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

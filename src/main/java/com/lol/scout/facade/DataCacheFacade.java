@@ -1,7 +1,7 @@
 package com.lol.scout.facade;
 
 import com.google.gson.GsonBuilder;
-import com.lol.scout.domain.ChampionListDto;
+import com.lol.scout.domain.champion.ChampionListDto;
 import com.lol.scout.domain.cache.ChampionsCache;
 import com.lol.scout.domain.cache.LanguagesCache;
 import com.lol.scout.domain.cache.VersionsCache;

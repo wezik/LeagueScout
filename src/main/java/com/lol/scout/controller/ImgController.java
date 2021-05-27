@@ -1,6 +1,6 @@
 package com.lol.scout.controller;
 
-import com.lol.scout.domain.ChampionDto;
+import com.lol.scout.domain.champion.ChampionDto;
 import com.lol.scout.exception.ApiFetchFailedException;
 import com.lol.scout.facade.DataCacheFacade;
 import com.lol.scout.manager.ImgManager;
