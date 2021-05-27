@@ -8,12 +8,12 @@
     {
       "name": "riot.api.version",
       "type": "java.lang.String",
-      "description": "Version of Riot API used to fetch data, can provide older one to older data(required to disable auto updating)."
+      "description": "Version of Riot API used to fetch data, can provide older one to get older data(required to disable auto updating)."
     },
     {
       "name": "riot.api.locale",
       "type": "java.lang.String",
-      "description": "Provides a locale used in fetching data. Using different locale will change the language of champion bio etc."
+      "description": "Provides a locale used in fetching data. Using different locale will change the language of champions bio etc."
     },
     {
       "name": "riot.api.key",
