@@ -29,16 +29,18 @@ public class LeagueSummonerApiClient {
         try {
             Optional<LeagueEntry[]> response = Optional.ofNullable(
                     restTemplate.getForObject(
-                            buildRankEntriesByIdURI(server,summonerId),
+                            buildRankEntriesByIdURI(server, summonerId),
                             LeagueEntry[].class));
             if (response.isPresent()) {
+                logSuccess();
                 return new HashSet<>(Arrays.asList(response.get()));
             } else {
-                return Collections.emptySet();
+                logFail();
             }
-        } catch (RestClientException e) {
-            return Collections.emptySet();
-        }
+        }   catch(RestClientException e){
+                logFail();
+            }
+        return Collections.emptySet();
     }
 
     public Optional<CurrentGameInfo> fetchLiveGame(String server, String summonerId) {
@@ -81,11 +83,6 @@ public class LeagueSummonerApiClient {
     private final String apiVersion = "v4";
     private final String byName = "by-name";
     private final String byId = "by-summoner";
-
-    private URI buildMatchHistoryByIdURI() {
-        //TODO
-        return null;
-    }
 
     private URI buildRankEntriesByIdURI(String server, String summonerId) {
         List<String> params = List.of(

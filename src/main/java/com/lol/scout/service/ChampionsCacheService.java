@@ -5,7 +5,7 @@ import com.lol.scout.repository.ChampionsCacheRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -13,12 +13,8 @@ public class ChampionsCacheService {
 
     private final ChampionsCacheRepository championsCacheRepository;
 
-    public List<ChampionsCache> getAll() {
-        return championsCacheRepository.findAll();
-    }
-
-    public void deleteAll() {
-        championsCacheRepository.deleteAll();
+    public Optional<ChampionsCache> get(String patch) {
+        return championsCacheRepository.findByPatch(patch);
     }
 
     public ChampionsCache save(ChampionsCache championsCache) {

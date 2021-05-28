@@ -1,7 +1,6 @@
 package com.lol.scout.api.league.client;
 
 import com.lol.scout.api.league.config.LeagueApiConfig;
-import com.lol.scout.domain.champion.ChampionListDto;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,28 +23,6 @@ public class LeagueDataApiClient {
 
     private final RestTemplate restTemplate;
     private final LeagueApiConfig leagueApiConfig;
-
-    public Optional<ChampionListDto> fetchChampionsList(String version, String locale) {
-        LOGGER.info("Calling API to fetch champions list");
-        try {
-            Optional<ChampionListDto> response = Optional.ofNullable(restTemplate.getForObject(
-                    buildChampionsListURI(
-                            version,
-                            locale
-                    ),
-                    ChampionListDto.class)
-            );
-            logSuccess();
-            return response;
-        } catch (RestClientException e) {
-            logFail();
-            return Optional.empty();
-        }
-    }
-
-    public Optional<ChampionListDto> fetchChampionsList() {
-        return fetchChampionsList(leagueApiConfig.getVersion(),leagueApiConfig.getLocale());
-    }
 
     public List<String> fetchVersions() {
         LOGGER.info("Calling API to fetch versions");
@@ -77,19 +54,6 @@ public class LeagueDataApiClient {
 
     private void logFail() {
         LOGGER.error("Call Failed");
-    }
-
-    private URI buildChampionsListURI(String version, String locale) {
-        List<String> urlComponents = List.of(
-                leagueApiConfig.getDDragonEndpoint(),
-                "cdn",
-                version,
-                "data",
-                locale,
-                "champion.json"
-        );
-        return UriComponentsBuilder.fromHttpUrl(String.join("/",urlComponents))
-                .build().encode().toUri();
     }
 
     private URI buildVersionsURI() {

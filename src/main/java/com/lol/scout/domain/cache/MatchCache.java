@@ -9,12 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "champions_cache")
-public class ChampionsCache {
+@NoArgsConstructor
+@Entity(name = "matches_cache")
+public class MatchCache {
     @Id
-    private String patch;
+    private String matchId;
     @Lob
     private String json;
+    private long gameCreation;
 }

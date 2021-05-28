@@ -1,9 +1,11 @@
 package com.lol.scout.api.league.config;
 
-import com.lol.scout.facade.DataCacheFacade;
+import com.lol.scout.facade.DataFacade;
+import com.lol.scout.manager.DataCacheManager;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -18,7 +20,10 @@ public class VersionCheck {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VersionCheck.class);
 
-    private final DataCacheFacade dataCacheFacade;
+    private final DataFacade dataFacade;
+
+    @Autowired
+    private LeagueApiConfig leagueApiConfig;
 
     @Value("${riot.api.version}")
     private String version;
@@ -31,7 +36,7 @@ public class VersionCheck {
 
     @Bean
     public void checkVersion() {
-        List<String> versions = dataCacheFacade.getVersions();
+        List<String> versions = dataFacade.getVersions();
         if (versions.size() > 0) {
             String currentVersion = versions.get(0);
             if (!currentVersion.equals(version)) {
@@ -62,6 +67,7 @@ public class VersionCheck {
             }
             bw.flush();
             bw.close();
+            leagueApiConfig.setVersion(version);
             LOGGER.info("API updated successfully");
         } catch (IOException e) {
             LOGGER.error("Failed to update Riot API");

@@ -9,12 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "champions_cache")
-public class ChampionsCache {
+@NoArgsConstructor
+@Entity(name = "rank_cache")
+public class RankCache {
     @Id
-    private String patch;
+    private String encryptedId;
     @Lob
     private String json;
+    private long lastUpdate;
 }
