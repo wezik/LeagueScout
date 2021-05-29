@@ -14,8 +14,9 @@ import javax.persistence.Lob;
 @Entity(name = "rank_cache")
 public class RankCache {
     @Id
-    private String encryptedId;
+    private String summonerId;
     @Lob
     private String json;
+    private String region;
     private long lastUpdate;
 }

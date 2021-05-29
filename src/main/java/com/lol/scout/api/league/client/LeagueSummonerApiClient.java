@@ -75,6 +75,22 @@ public class LeagueSummonerApiClient {
         }
     }
 
+    public Optional<Summoner> fetchSummonerByPuuid(String server, String puuid) {
+        LOGGER.info("Calling API to fetch summoner "+puuid);
+        try {
+            Optional<Summoner> response = Optional.ofNullable(
+                    restTemplate.getForObject(
+                            buildSummonerByPuuidUri(server, puuid),
+                            Summoner.class)
+            );
+            logSuccess();
+            return response;
+        } catch (RestClientException e) {
+            logFail();
+            return Optional.empty();
+        }
+    }
+
     private final String apiKeyParam = "?api_key=";
     private final String summonerApi = "summoner";
     private final String spectatorApi = "spectator";
@@ -83,6 +99,7 @@ public class LeagueSummonerApiClient {
     private final String apiVersion = "v4";
     private final String byName = "by-name";
     private final String byId = "by-summoner";
+    private final String byPuuid = "by-puuid";
 
     private URI buildRankEntriesByIdURI(String server, String summonerId) {
         List<String> params = List.of(
@@ -107,6 +124,20 @@ public class LeagueSummonerApiClient {
                 "summoners",
                 byName,
                 name+apiKeyParam+leagueApiConfig.getKey()
+        );
+        return UriComponentsBuilder.fromHttpUrl(String.join("/", params))
+                .build().encode().toUri();
+    }
+
+    private URI buildSummonerByPuuidUri(String server, String puuid) {
+        List<String> params = List.of(
+                determineServerEndpoint(server),
+                apiName,
+                summonerApi,
+                apiVersion,
+                "summoners",
+                byPuuid,
+                puuid+apiKeyParam+leagueApiConfig.getKey()
         );
         return UriComponentsBuilder.fromHttpUrl(String.join("/", params))
                 .build().encode().toUri();

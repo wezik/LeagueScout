@@ -20,6 +20,10 @@ public class ApiSummonerService {
         return leagueSummonerApiClient.fetchSummonerByName(server,summonerName);
     }
 
+    public Optional<Summoner> getSummonerByPuuid(String server, String puuid) {
+        return leagueSummonerApiClient.fetchSummonerByPuuid(server,puuid);
+    }
+
     public Optional<CurrentGameInfo> getCurrentGameById(String server, String summonerId) {
         return leagueSummonerApiClient.fetchLiveGame(server,summonerId);
     }

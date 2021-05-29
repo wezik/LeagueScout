@@ -16,12 +16,12 @@ import javax.persistence.Id;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Summoner {
     @Id
-    @JsonProperty("id")
-    private String id;
-    @JsonProperty("accountId")
-    private String accountId;
     @JsonProperty("puuid")
     private String puuid;
+    @JsonProperty("accountId")
+    private String accountId;
+    @JsonProperty("id")
+    private String id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("profileIconId")
