@@ -55,7 +55,10 @@ public class MatchCacheManager {
                     participant.isWin(),
                     participant.getKills(),
                     participant.getDeaths(),
-                    participant.getAssists()
+                    participant.getAssists(),
+                    matchDto.getInfo().getGameVersion(),
+                    matchDto.getInfo().getMapId(),
+                    participant.getLane()
             );
             championStatsService.save(championStats);
         }

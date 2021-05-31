@@ -26,7 +26,7 @@ public class ParticipantDto {
     @JsonProperty("champLevel")
     private int champLevel;
     @JsonProperty("championId")
-    private int championId;
+    private String championId;
     @JsonProperty("championName")
     private String championName;
     @JsonProperty("championTransform")
@@ -57,6 +57,20 @@ public class ParticipantDto {
     private String summonerId;
     @JsonProperty("summonerName")
     private String summonerName;
+    @JsonProperty("totalDamageDealtToChampions")
+    private long totalDamageDealtToChampions;
+    @JsonProperty("timeCCingOthers")
+    private long timeCCingOthers;
+    @JsonProperty("neutralMinionsKilled")
+    private long neutralMinionsKilled;
+    @JsonProperty("totalMinionsKilled")
+    private long totalMinionsKilled;
+    @JsonProperty("summoner1Id")
+    private long summoner1Id;
+    @JsonProperty("summoner2Id")
+    private long summoner2Id;
+    @JsonProperty("teamId")
+    private long teamId;
     @JsonProperty("win")
     private boolean win;
 }

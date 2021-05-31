@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
+
 
 @Getter
 @AllArgsConstructor
@@ -20,9 +19,12 @@ public class ChampionStats {
     private String matchId;
     private String summonerPuuid;
     private long queueId;
-    private long championId;
+    private String championKey;
     private boolean win;
     private int kills;
     private int deaths;
     private int assists;
+    private String patch;
+    private long mapId;
+    private String role;
 }
