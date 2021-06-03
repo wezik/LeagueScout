@@ -44,6 +44,7 @@ public class MatchFacade {
             case 840: return "Co-op vs Beginner Bots";
             case 850: return "Co-op vs Intermediate Bots";
             case 900: return "URF";
+            case 1300: return "Nexus Blitz";
             default: return "Game mode";
         }
     }
