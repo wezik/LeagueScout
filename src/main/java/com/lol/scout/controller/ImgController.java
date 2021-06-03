@@ -56,6 +56,7 @@ public class ImgController {
 
     @GetMapping(value = "icon/champion/{id}")
     public ModelAndView redirectToIconForChampion(@PathVariable String id) throws ApiFetchFailedException {
+        id = correctFiddlesticks(id);
         ChampionListDto list = championFacade.getChampions(leagueApiConfig.getVersion()).orElseThrow(ApiFetchFailedException::new);
         String url = imgFacade.getChampionIconUrl(list.getData().get(id).getId());
         return new ModelAndView("redirect:" + url);
@@ -63,6 +64,7 @@ public class ImgController {
 
     @GetMapping(value = "loading/{id}")
     public ModelAndView redirectToLoadingArt(@PathVariable String id) throws ApiFetchFailedException {
+        id = correctFiddlesticks(id);
         ChampionListDto list = championFacade.getChampions(leagueApiConfig.getVersion()).orElseThrow(ApiFetchFailedException::new);
         String url = imgFacade.getChampionLoadingArtUrl(list.getData().get(id).getId());
         return new ModelAndView("redirect:"+url);
@@ -70,6 +72,7 @@ public class ImgController {
 
     @GetMapping(value = "loading/{id}/{skin_id}")
     public ModelAndView redirectToLoadingArtWithSkin(@PathVariable String id, @PathVariable int skin_id) throws ApiFetchFailedException {
+        id = correctFiddlesticks(id);
         ChampionListDto list = championFacade.getChampions(leagueApiConfig.getVersion()).orElseThrow(ApiFetchFailedException::new);
         String url = imgFacade.getChampionLoadingArtUrl(list.getData().get(id).getId(),skin_id);
         return new ModelAndView("redirect:"+url);
@@ -77,6 +80,7 @@ public class ImgController {
 
     @GetMapping(value = "splash/{id}")
     public ModelAndView redirectToSplashArt(@PathVariable String id) throws ApiFetchFailedException {
+        id = correctFiddlesticks(id);
         ChampionListDto list = championFacade.getChampions(leagueApiConfig.getVersion()).orElseThrow(ApiFetchFailedException::new);
         String url = imgFacade.getChampionSplashArtUrl(list.getData().get(id).getId());
         return new ModelAndView("redirect:"+url);
@@ -84,6 +88,7 @@ public class ImgController {
 
     @GetMapping(value = "splash/{id}/{skin_id}")
     public ModelAndView redirectToSplashArtWithSkin(@PathVariable String id, @PathVariable int skin_id) throws ApiFetchFailedException {
+        id = correctFiddlesticks(id);
         ChampionListDto list = championFacade.getChampions(leagueApiConfig.getVersion()).orElseThrow(ApiFetchFailedException::new);
         String url = imgFacade.getChampionSplashArtUrl(list.getData().get(id).getId(),skin_id);
         return new ModelAndView("redirect:"+url);
@@ -108,6 +113,11 @@ public class ImgController {
         byte[] result = baos.toByteArray();
         baos.close();
         return result;
+    }
+    private String correctFiddlesticks(String id) {
+        if(id.equalsIgnoreCase("Fiddlesticks")) {
+            return "Fiddlesticks";
+        } else return id;
     }
 
 }
