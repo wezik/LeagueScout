@@ -1,7 +1,7 @@
-package com.lol.scout.service;
+package com.lol.scout.service.cache;
 
 import com.lol.scout.domain.cache.RankCache;
-import com.lol.scout.repository.RankCacheRepository;
+import com.lol.scout.repository.cache.RankCacheRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

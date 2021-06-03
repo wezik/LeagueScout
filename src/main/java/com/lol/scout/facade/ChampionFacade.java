@@ -1,6 +1,7 @@
 package com.lol.scout.facade;
 
 import com.lol.scout.api.league.config.LeagueApiConfig;
+import com.lol.scout.config.CoreConfig;
 import com.lol.scout.domain.cache.ChampionsCache;
 import com.lol.scout.domain.champion.ChampionDetailsDto;
 import com.lol.scout.domain.champion.ChampionListDto;

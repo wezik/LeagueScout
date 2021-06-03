@@ -30,6 +30,9 @@ public class LeagueApiConfig {
     @Value("${riot.api.ddragon}")
     private String dDragonEndpoint;
 
+    @Value("${riot.api.static}")
+    private String staticEndpoint;
+
     @Value("${riot.api.locale}")
     private String locale;
 

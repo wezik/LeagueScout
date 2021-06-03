@@ -2,6 +2,7 @@ package com.lol.scout.controller;
 
 import com.lol.scout.domain.currentgame.CurrentGameInfo;
 import com.lol.scout.domain.league.LeagueEntry;
+import com.lol.scout.domain.match.MatchDto;
 import com.lol.scout.domain.summoner.Summoner;
 import com.lol.scout.exception.SummonerNotFoundException;
 import com.lol.scout.exception.SummonerNotInDatabaseException;
@@ -37,7 +38,7 @@ public class SummonerController {
 
     @GetMapping("{server}/{summoner_id}/rank")
     public Set<LeagueEntry> getRanks(@PathVariable String server, @PathVariable String summoner_id) {
-        return summonerFacade.getRankEntries(server,summoner_id);
+        return summonerFacade.getRankEntries(server, summoner_id);
     }
 
 }

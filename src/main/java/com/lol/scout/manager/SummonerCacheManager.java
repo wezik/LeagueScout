@@ -6,6 +6,8 @@ import com.lol.scout.domain.league.LeagueEntry;
 import com.lol.scout.domain.summoner.Summoner;
 import com.lol.scout.mapper.SummonerCacheMapper;
 import com.lol.scout.service.*;
+import com.lol.scout.service.api.ApiSummonerService;
+import com.lol.scout.service.cache.RankCacheService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

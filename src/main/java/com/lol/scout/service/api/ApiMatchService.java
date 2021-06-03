@@ -1,4 +1,4 @@
-package com.lol.scout.service;
+package com.lol.scout.service.api;
 
 import com.lol.scout.api.league.client.LeagueMatchApiClient;
 import com.lol.scout.domain.match.MatchDto;

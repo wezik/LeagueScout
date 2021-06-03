@@ -4,7 +4,7 @@ import com.lol.scout.facade.DataFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("v1/data")

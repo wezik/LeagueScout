@@ -1,6 +1,8 @@
 package com.lol.scout.api.league.client;
 
 import com.lol.scout.api.league.config.LeagueApiConfig;
+import com.lol.scout.domain.queues.QueueDto;
+import com.lol.scout.domain.summoners.SummonerSpellsDto;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,12 +50,32 @@ public class LeagueDataApiClient {
         }
     }
 
+    public Optional<SummonerSpellsDto> fetchSummonerSpells() {
+        LOGGER.info("Calling API fo tech summoner spells");
+        try {
+            Optional<SummonerSpellsDto> response = Optional.ofNullable(restTemplate.getForObject(buildSummonersDtoURI(), SummonerSpellsDto.class));
+            logSuccess();
+            return response;
+        } catch (RestClientException e) {
+            logFail();
+            return Optional.empty();
+        }
+    }
+
     private void logSuccess() {
         LOGGER.info("Call Successful");
     }
 
     private void logFail() {
         LOGGER.error("Call Failed");
+    }
+
+    private URI buildSummonersDtoURI() {
+        return UriComponentsBuilder.fromHttpUrl(
+                leagueApiConfig.getDDragonEndpoint() +
+                        "/cdn/" + leagueApiConfig.getVersion() +
+                        "/data/" + leagueApiConfig.getLocale() +
+                        "/summoner.json").build().encode().toUri();
     }
 
     private URI buildVersionsURI() {

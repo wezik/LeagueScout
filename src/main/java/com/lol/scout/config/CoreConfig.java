@@ -16,6 +16,18 @@ public class CoreConfig {
     @Value("${images.directory}")
     private String imagesDirectory;
 
+    @Value("${update.time.versions}")
+    private int updateTimeVersions;
+
+    @Value("${update.time.locales}")
+    private int updateTimeLocales;
+
+    @Value("${update.time.queues}")
+    private int updateTimeQueues;
+
+    @Value("${update.time.summoner-spells}")
+    private int updateTimeSummonerSpells;
+
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();

@@ -2,10 +2,15 @@ package com.lol.scout.controller;
 
 import com.lol.scout.api.league.config.LeagueApiConfig;
 import com.lol.scout.domain.champion.ChampionListDto;
+import com.lol.scout.domain.summoners.SummonerSpellDetails;
+import com.lol.scout.domain.summoners.SummonerSpellsDto;
 import com.lol.scout.exception.ApiFetchFailedException;
+import com.lol.scout.exception.SummonerSpellNotFoundException;
 import com.lol.scout.facade.ChampionFacade;
+import com.lol.scout.facade.DataFacade;
 import com.lol.scout.facade.ImgFacade;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,6 +29,7 @@ public class ImgController {
     private final ImgFacade imgFacade;
     private final ChampionFacade championFacade;
     private final LeagueApiConfig leagueApiConfig;
+    private final DataFacade dataFacade;
 
     @GetMapping(value = "icon/item/{id}")
     public ModelAndView redirectToItemIcon(@PathVariable String id) {
@@ -37,9 +43,14 @@ public class ImgController {
         return new ModelAndView("redirect:" + url);
     }
 
-    @GetMapping(value = "icon/summonerspell/{id}")
-    public ModelAndView redirectToIconForSummonerSpell(@PathVariable String id) {
-        String url = imgFacade.getSummonerSpellIconUrl(id);
+    @GetMapping(value = "icon/summonerspell/{key}")
+    public ModelAndView redirectToIconForSummonerSpell(@PathVariable String key) throws ApiFetchFailedException, SummonerSpellNotFoundException {
+        SummonerSpellsDto ssDto = dataFacade.getSummonerSpells().orElseThrow(ApiFetchFailedException::new);
+        SummonerSpellDetails ssDetails = ssDto.getData().values().stream()
+                .filter(e -> e.getKey().equalsIgnoreCase(key))
+                .findFirst()
+                .orElseThrow(SummonerSpellNotFoundException::new);
+        String url = imgFacade.getSummonerSpellIconUrl(ssDetails.getId());
         return new ModelAndView("redirect:" + url);
     }
 

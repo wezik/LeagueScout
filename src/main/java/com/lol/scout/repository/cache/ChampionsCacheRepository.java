@@ -1,4 +1,4 @@
-package com.lol.scout.repository;
+package com.lol.scout.repository.cache;
 
 import com.lol.scout.domain.cache.ChampionsCache;
 import org.springframework.data.repository.CrudRepository;

@@ -1,14 +1,13 @@
 package com.lol.scout.manager;
 
-import com.google.gson.GsonBuilder;
-import com.lol.scout.domain.cache.ChampionsCache;
 import com.lol.scout.domain.cache.MatchCache;
-import com.lol.scout.domain.champion.ChampionListDto;
 import com.lol.scout.domain.match.MatchDto;
 import com.lol.scout.domain.match.ParticipantDto;
 import com.lol.scout.domain.summoner.ChampionStats;
 import com.lol.scout.mapper.MatchCacheMapper;
 import com.lol.scout.service.*;
+import com.lol.scout.service.api.ApiMatchService;
+import com.lol.scout.service.cache.MatchesCacheService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

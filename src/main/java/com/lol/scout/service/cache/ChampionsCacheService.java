@@ -1,7 +1,7 @@
-package com.lol.scout.service;
+package com.lol.scout.service.cache;
 
 import com.lol.scout.domain.cache.ChampionsCache;
-import com.lol.scout.repository.ChampionsCacheRepository;
+import com.lol.scout.repository.cache.ChampionsCacheRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

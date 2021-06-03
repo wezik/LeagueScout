@@ -1,16 +1,14 @@
 package com.lol.scout.manager;
 
-import com.google.gson.GsonBuilder;
-import com.lol.scout.domain.champion.ChampionListDto;
-import com.lol.scout.domain.cache.ChampionsCache;
 import com.lol.scout.domain.cache.LanguagesCache;
+import com.lol.scout.domain.cache.SummonerSpellCache;
 import com.lol.scout.domain.cache.VersionsCache;
-import com.lol.scout.exception.ApiFetchFailedException;
+import com.lol.scout.domain.summoners.SummonerSpellsDto;
 import com.lol.scout.mapper.DataCacheMapper;
-import com.lol.scout.service.ApiDataService;
-import com.lol.scout.service.ChampionsCacheService;
-import com.lol.scout.service.LanguagesCacheService;
-import com.lol.scout.service.VersionsCacheService;
+import com.lol.scout.service.api.ApiDataService;
+import com.lol.scout.service.cache.LanguagesCacheService;
+import com.lol.scout.service.cache.SummonerSpellCacheService;
+import com.lol.scout.service.cache.VersionsCacheService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +25,28 @@ public class DataCacheManager {
 
     private final LanguagesCacheService languagesCacheService;
     private final VersionsCacheService versionsCacheService;
+    private final SummonerSpellCacheService summonerSpellCacheService;
     private final DataCacheMapper dataCacheMapper;
 
     private final ApiDataService apiDataService;
+
+    public Optional<SummonerSpellCache> getSummonerSpellsFromCache() {
+        List<SummonerSpellCache> entries = summonerSpellCacheService.getAll();
+        if (entries.size() >= 1) {
+            return Optional.of(entries.get(0));
+        }
+        return Optional.empty();
+    }
+
+    public Optional<SummonerSpellCache> cacheSummonerSpellsFromApi() {
+        Optional<SummonerSpellsDto> response = apiDataService.getSummonerSpells();
+        if (response.isEmpty()) return Optional.empty();
+        SummonerSpellCache cache = dataCacheMapper.mapSummonerSpellsDtoToSummonerSpellCache(response.get(),System.currentTimeMillis());
+        summonerSpellCacheService.deleteAll();
+        SummonerSpellCache result = summonerSpellCacheService.save(cache);
+        logCaching();
+        return Optional.of(result);
+    }
 
     public Optional<LanguagesCache> getLanguagesFromCache() {
         List<LanguagesCache> entries = languagesCacheService.getAll();
@@ -60,7 +77,7 @@ public class DataCacheManager {
     public Optional<VersionsCache> cacheVersionsFromApi() {
         List<String> apiResponse = apiDataService.getVersions();
         if (apiResponse.isEmpty()) return Optional.empty();
-        VersionsCache cache = dataCacheMapper.mapListToVersionsCache(apiResponse,LocalDate.now());
+        VersionsCache cache = dataCacheMapper.mapListToVersionsCache(apiResponse,System.currentTimeMillis());
         versionsCacheService.deleteAll();
         VersionsCache result = versionsCacheService.save(cache);
         logCaching();

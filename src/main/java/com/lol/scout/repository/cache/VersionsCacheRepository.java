@@ -1,4 +1,4 @@
-package com.lol.scout.repository;
+package com.lol.scout.repository.cache;
 
 import com.lol.scout.domain.cache.VersionsCache;
 import org.springframework.data.repository.CrudRepository;
@@ -8,6 +8,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface VersionsCacheRepository extends CrudRepository<VersionsCache, LocalDate> {
+public interface VersionsCacheRepository extends CrudRepository<VersionsCache, Long> {
     List<VersionsCache> findAll();
 }
